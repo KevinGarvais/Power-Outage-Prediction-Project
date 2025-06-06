@@ -47,6 +47,17 @@ Before going any further, let's ensure our data is clean and ready to use for ou
 1. We started by dropping the initial rows of the set which served only to explain characteristics of the columns
 2. Then, we combined our `'OUTAGE.START.DATE'` & `'OUTAGE.START.TIME'` to create `'OUTAGE.START.TIME.DATE'` a columns of datetime objects which have the exact date and time when the outage occurred. We did a similar process for our restoration columns, creating `'OUTAGE.RESTORATION'` a column of datetime objects that have the exact date and time when the power was restored.
 3. Lastly, we created the `'OUTAGE.DURATION'` column which was made by subtracting the restoration time by the start time, leaving us with a datetime object that amounted to the duration of the outage.
+4. We named the dataframe that results from this `'clean_included_null_df'` because it includes null values for `'OUTAGE.DURATION'` and then made a new dataframe called `'clean_outages_df'` which drops null values for `'OUTAGE.DURATION'`. Both of these dataframes will be helpful in analysis going forward.
+
+Here is a snippet of our `'clean_outages_df'` dataframe with some key columns:
+
+|   YEAR | OUTAGE.DURATION   | POSTAL.CODE   |   ANOMALY.LEVEL | CLIMATE.CATEGORY   |   CUSTOMERS.AFFECTED |
+|-------:|:------------------|:--------------|----------------:|:-------------------|---------------------:|
+|   2008 | 14 days 04:16:00  | LA            |            -0.3 | normal             |                50000 |
+|   2005 | 1 days 07:05:00   | GA            |            -0.7 | cold               |                52659 |
+|   2004 | 0 days 13:30:00   | GA            |             0.3 | normal             |                47165 |
+|   2011 | 0 days 17:26:00   | MI            |            -0.9 | cold               |                    0 |
+|   2014 | 0 days 00:52:00   | LA            |            -0.2 | normal             |                28000 |
 
 
 
