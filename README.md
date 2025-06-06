@@ -176,14 +176,17 @@ Our null hypothesis is: Warm climate does not increase the duration of a power o
 
 Our alternate hypothesis is: Warm climate does increase the duration of a power outage.
 
-Our test statistic is the difference of means
+Our test statistic is the difference of means. Specifically, the difference in means of the average outage duration overall vs. the average outage duration for warm climates.
 
 For our significance level, we will choose a p-value of 0.05.
 
+We performed a permutation test with 1,000 simulations that shuffled the climate categories of each outage. In these 1,000 simulations we stored the difference in means and compared it to our observed test statistic.
 
-
+Our observed test statistic was 3 days 13 minutes and 18 seconds and when comparing it to our 1,000 simulations we got a p-value of 0.279 meaning we fail to reject the null hypothesis. So, we assume that climate category has no impact on the duration of a power outage. This is useful information because we now know that climate category is not a good indicator of power outage duration.
 
 # Framing a Prediction Problem
+
+We will create a model that aims to predict the duration of a power outage. This will be a regression model since the duration of an outage is a continuous variable and not a categorical one.
 
 
 
