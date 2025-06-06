@@ -122,8 +122,64 @@ We grouped outage causes together and put them into a pivot table alongside the 
 
 ## NMAR Analysis
 
+One column that stands out in our dataset as potentially NMAR (Not missing at random) is `'CUSTOMERS.AFFECTED'`. We believe this could be the case because if the number of customers affected isn't listed, it could mean that not very many people were affected by the outage and thus the companies did not go through the effort to count affected customers. 
+
+If we had additional data indicating the land-area that was affected by the outage, we could perhaps explain the absence of customers affected as MAR.
+
+## Testing Missingness Dependency
+
+The subject of our missingness dependency test will be the `'OUTAGE.DURATION'` which is missing in 58 of the power outages. We will be testing to see the missingness of outage duration is dependent on `'CLIMATE.REGION` or `'CAUSE.CATEGORY'`.
+
+### Testing dependency on Climate Region
+
+Lets start by testing if the outage duration's missingness is dependent on the climate region of the outage.
+
+**Null Hypothesis:** The distribution of an outage duration's missingness is not different depending on the climate region.
+
+**Alternate Hypothesis:** The distribution of an outage duration's missingness is different depending on the climate region.
+
+To test these hypotheses, we will be taking the difference in maximum missingness proportion and minimum missingness proportion between each climate region.
+
+INSERT PLOT HERE!!!!
+
+
+I found an observed difference in proportions of 0.054 which had a p-value of 0.238 so we failed to reject the null hypothesis. So, we assume that the climate region has no impact on the missingness of the outage duration.
+
+INSERT PLOT HERE!!!
+
+
+### Testing dependency on Cause Category
+
+Next, lets  test if the outage duration's missingness is dependent on the cause of the outage.
+
+**Null Hypothesis:** The distribution of an outage duration's missingness is not different depending on the outage cause.
+
+**Alternate Hypothesis:** The distribution of an outage duration's missingness is different depending on the outage cause.
+
+To test these hypotheses, we will be taking the difference in maximum missingness proportion and minimum missingness proportion between each outage cause.
+
+
+INSERT PLOT HERE!!!
+
+
+I found an observed difference in proportions of 0.255 which had a p-value of 0.0 so we reject the null hypothesis. So, we can assume that the missingness of an outage duration does depend on the cause of the outage.
+
+INSERT PLOT HERE!!!!
+
+
 
 # Hypothesis Testing
+
+**For our hypothesis test, we will be testing if "warm" climate category has a significant impact on increasing the duration of a power outage.**
+
+Our null hypothesis is: Warm climate does not increase the duration of a power outage.
+
+Our alternate hypothesis is: Warm climate does increase the duration of a power outage.
+
+Our test statistic is the difference of means
+
+For our significance level, we will choose a p-value of 0.05.
+
 
 
 
