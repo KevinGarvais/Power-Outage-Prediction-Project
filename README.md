@@ -4,7 +4,7 @@ by Adam Walters and Kevin Garvais
 
 
 # Introduction
-In this project, we examined a dataset compiling major power outages in the continental U.S. dating from January 2000 - July 2016. The outages in the dataset were compiled by the Department of Energy and were known to impact at least 50,000 customers or caused an unplanned energy demand loss amounting to at least 300 MegaWatts of power. We accessed this dataset from Purdue University’s Laboratory for Advancing Sustainable Critical Infrastructure. Link to the dataset: https://engineering.purdue.edu/LASCI/research-data/outages.
+In this project, we examined a dataset compiling major power outages in the U.S. dating from January 2000 - July 2016. The outages in the dataset were compiled by the Department of Energy and were known to impact at least 50,000 customers or caused an unplanned energy demand loss amounting to at least 300 MegaWatts of power. We accessed this dataset from Purdue University’s Laboratory for Advancing Sustainable Critical Infrastructure. Link to the dataset: https://engineering.purdue.edu/LASCI/research-data/outages.
 
 The dataset records a plethora of information about the power outages in question. This data includes geographical, climatic, urban/rural land-use attributes, and electricity consumption and economic characteristics of the state involved.
 
@@ -59,10 +59,58 @@ Here is a snippet of our `'clean_outages_df'` dataframe with some key columns:
 |   2011 | 0 days 17:26:00   | MI            |            -0.9 | cold               |                    0 |
 |   2014 | 0 days 00:52:00   | LA            |            -0.2 | normal             |                28000 |
 
+## Exploratory Data Analysis
+
+### Univariate Analysis
+
+We began with univariate analysis of total outages across different variables.
+
+First, we examined how many outages each `'CAUSE.CATEGORY'` had:
+
+
+INSERT PLOT HERE!!!!
+
+The plot shows that severe weather and intentional attacks account for the majority of outages in our data.
+
+
+Then, we looked at the total outages by U.S. region:
+
+INSERT PLOT HERE!!!!
+
+The plot indicates a fairly even distribution of outages apart from the Northeast and West North Central regions. The Northeast has far more outages and the West North Central, far fewer outages.
+
+
+### Bivariate Analysis
+
+Next, we wanted to look at how two variables interacted with each other inside our data.
+
+First, we examined which U.S. states had the most yearly outages:
+
+INSERT PLOT HERE!!!!
+
+The map indicates that California and Texas have the most yearly outages by far, while other states with lower populations tend to have less outages.
+
+Next, we looked at the median outage duration for each state:
+
+INSERT PLOT HERE!!!!
+
+The map indicates that many western states experience far shorter power outages than eastern states.
+
+Lastly, we took a look at the median outage duration for each outage cause:
+
+INSERT PLOT HERE!!!
+
+The bar graph indicates that fuel supply emergencies and severe weather often result in far longer outage durations as opposed to other causes.
+
+### Interesting Aggregates
+
+
+
 
 
 # Assessment of Missingness
 
+## NMAR Analysis
 
 
 # Hypothesis Testing
