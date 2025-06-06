@@ -68,14 +68,24 @@ We began with univariate analysis of total outages across different variables.
 First, we examined how many outages each `'CAUSE.CATEGORY'` had:
 
 
-INSERT PLOT HERE!!!!
+<iframe
+  src="assets/univariate_1.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 
 The plot shows that severe weather and intentional attacks account for the majority of outages in our data.
 
 
 Then, we looked at the total outages by U.S. region:
 
-INSERT PLOT HERE!!!!
+<iframe
+  src="assets/univariate2.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 
 The plot indicates a fairly even distribution of outages apart from the Northeast and West North Central regions. The Northeast has far more outages and the West North Central, far fewer outages.
 
@@ -86,19 +96,34 @@ Next, we wanted to look at how two variables interacted with each other inside o
 
 First, we examined which U.S. states had the most yearly outages:
 
-INSERT PLOT HERE!!!!
+<iframe
+  src="assets/bivariate_1.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 
 The map indicates that California and Texas have the most yearly outages by far, while other states with lower populations tend to have less outages.
 
 Next, we looked at the median outage duration for each state:
 
-INSERT PLOT HERE!!!!
+<iframe
+  src="assets/bivariate_2.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 
 The map indicates that many western states experience far shorter power outages than eastern states.
 
 Lastly, we took a look at the median outage duration for each outage cause:
 
-INSERT PLOT HERE!!!
+<iframe
+  src="assets/bivariate_3.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 
 The bar graph indicates that fuel supply emergencies and severe weather often result in far longer outage durations as opposed to other causes.
 
@@ -140,12 +165,22 @@ Lets start by testing if the outage duration's missingness is dependent on the c
 
 To test these hypotheses, we will be taking the difference in maximum missingness proportion and minimum missingness proportion between each climate region.
 
-INSERT PLOT HERE!!!!
+<iframe
+  src="assets/CLIMATE.REGION_1.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 
 
 I found an observed difference in proportions of 0.054 which had a p-value of 0.238 so we failed to reject the null hypothesis. So, we assume that the climate region has no impact on the missingness of the outage duration.
 
-INSERT PLOT HERE!!!
+<iframe
+  src="assets/CLIMATE.REGION_2.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 
 
 ### Testing dependency on Cause Category
@@ -159,12 +194,22 @@ Next, lets  test if the outage duration's missingness is dependent on the cause 
 To test these hypotheses, we will be taking the difference in maximum missingness proportion and minimum missingness proportion between each outage cause.
 
 
-INSERT PLOT HERE!!!
+<iframe
+  src="assets/CAUSE.CATEGORY_1.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 
 
 I found an observed difference in proportions of 0.255 which had a p-value of 0.0 so we reject the null hypothesis. So, we can assume that the missingness of an outage duration does depend on the cause of the outage.
 
-INSERT PLOT HERE!!!!
+<iframe
+  src="assets/CAUSE.CATEGORY_2.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 
 
 
