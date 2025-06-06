@@ -12,6 +12,9 @@ In this project, we will first clean our dataset and come to understand it throu
 
 This will set us up to answer our research question: What characteristics of a power outage contribute most to its duration? Continuing with this question, we will build a prediction model and will take in information about a power outage and predict its duration. This type of model would be very important for first responders and people affected by the outage so they can effectively prepare for an accurate duration of power loss.
 
+
+# Our Dataset
+
 Our original raw dataset contains 1534 rows and 57 columns, corresponding to unique outages and outage characteristics respectively. Here are the columns most notable for our future analysis.
 
 |Column                |Description|
@@ -25,8 +28,10 @@ Our original raw dataset contains 1534 rows and 57 columns, corresponding to uni
 |`'ANOMALY.LEVEL'`                |Oceanic El Niño/La Niña (ONI) index referring to the cold and warm episodes by season|
 |`'OUTAGE.START.DATE'`                |Day of the year when the outage event started|
 |`'OUTAGE.START.TIME'`                |Time of the day when the outage event started|
+|`'OUTAGE.START.TIME.DATE'`                |Date and time of the day when the outage event started|
 |`'OUTAGE.RESTORATION.DATE'`                |Day of the year when power was restored to all the customers|
 |`'OUTAGE.RESTORATION.TIME'`                |Time of the day when power was restored to all the customers|
+|`'OUTAGE.RESTORATION`                |Date and time of the day when power was restored to all the customers|
 |`'CAUSE.CATEGORY'`                |Categories of all the events causing the major power outages|
 |`'OUTAGE.DURATION'`                |Duration of outage events|
 |`'CUSTOMERS.AFFECTED'`                |Number of customers affected by the power outage event|
@@ -39,7 +44,9 @@ Our original raw dataset contains 1534 rows and 57 columns, corresponding to uni
 Before going any further, let's ensure our data is clean and ready to use for our analysis.
 
 ## Data Cleaning
-
+1. We started by dropping the initial rows of the set which served only to explain characteristics of the columns
+2. Then, we combined our `'OUTAGE.START.DATE'` & `'OUTAGE.START.TIME'` to create `'OUTAGE.START.TIME.DATE'` a columns of datetime objects which have the exact date and time when the outage occurred. We did a similar process for our restoration columns, creating `'OUTAGE.RESTORATION'` a column of datetime objects that have the exact date and time when the power was restored.
+3. Lastly, we created the `'OUTAGE.DURATION'` column which was made by subtracting the restoration time by the start time, leaving us with a datetime object that amounted to the duration of the outage.
 
 
 
