@@ -129,7 +129,7 @@ The bar graph indicates that fuel supply emergencies and severe weather often re
 
 ### Interesting Aggregates
 
-We grouped outage causes together and put them into a pivot table alongside the year in which the outages occurred. This pivot table would allow us to examine how the median duration of an outage of a certain cause may change over time. 
+We grouped outage causes together and put them into a pivot table alongside the year in which the outages occurred. This pivot table would allow us to examine how the median duration of an outage (HOURS) with a certain cause may change over time. 
 
 | CAUSE.CATEGORY                |     2000 |      2001 |     2002 |     2003 |     2004 |     2005 |    2006 |      2007 |      2008 |      2009 |      2010 |
 |:------------------------------|---------:|----------:|---------:|---------:|---------:|---------:|--------:|----------:|----------:|----------:|----------:|
@@ -172,7 +172,7 @@ To test these hypotheses, we will be taking the difference in maximum missingnes
 ></iframe>
 
 
-I found an observed difference in proportions of 0.054 which had a p-value of 0.238 so we failed to reject the null hypothesis. So, we assume that the climate region has no impact on the missingness of the outage duration.
+We found an observed difference in proportions of 0.054 which had a p-value around 0.238 so we failed to reject the null hypothesis. So, we assume that the climate region has no impact on the missingness of the outage duration.
 
 <iframe
   src="assets/CLIMATE.REGION_2.html"
@@ -226,20 +226,47 @@ For our significance level, we will choose a p-value of 0.05.
 
 We performed a permutation test with 1,000 simulations that shuffled the climate categories of each outage. In these 1,000 simulations we stored the difference in means and compared it to our observed test statistic.
 
-Our observed test statistic was 3 days 13 minutes and 18 seconds and when comparing it to our 1,000 simulations we got a p-value of 0.279 meaning we fail to reject the null hypothesis. So, we assume that climate category has no impact on the duration of a power outage. This is useful information because we now know that climate category is not a good indicator of power outage duration.
+Our observed test statistic was 3 hours 13 minutes and 18 seconds and when comparing it to our 1,000 simulations we got a p-value of 0.279 meaning we fail to reject the null hypothesis. So, we assume that climate category has no impact on the duration of a power outage. This is useful information because we now know that climate category is not a good indicator of power outage duration.
 
 # Framing a Prediction Problem
 
 We will create a model that aims to predict the duration of a power outage. This will be a regression model since the duration of an outage is a continuous variable and not a categorical one.
 
+The variable we will be predicting is `'OUTAGE.DURATION'` because it will directly tell us how long our power outage lasted. Since we are testing a regression model, we will be using accuracy to assess the model's performance.
+
+We will be sure to only use metric that are known at the time of our prediction. Meaning we will not use data that would likely only be know during or after an outage occurs like customers affected, demand loss, etc.
 
 
 # Baseline Model
 
+Our baseline model uses a linear regression to predict outage duration based on the anomaly level of the outage and its associated cause category. Anomaly level is a quantitative feature, while cause category is a nominal feature with no natural ordering.
+
+There is 1 quantitative feature in ANOMALY.LEVEL and 1 nominal feature CAUSE.CATEGORY. The nominal cause category was one-hot encoded to handle its categorical structure, meanwhile the anomaly level category was passed directly on to linear regression.
+
+The model was trained on a train-test split and evaluated on both the test set and the full dataset. On the test data, the model achieved an R² score of approximately 0.05-0.20 and an RMSE of roughly 60-110. On the full dataset, the R² was 0.16, with an RMSE of 90.
+
+The  R² score is pretty low, though for only using 2 features it’s to be expected to some extent. Given the high variance of testing on unseen data, the model would also likely not be as effective as a  R² score of 0.16 when introduced to new data.
 
 
 # Final Model
 
+In the final model, we added POSTAL.CODE, which represents the two-letter state code for each observation. Early data visualizations showed a noticeable difference in both the average durations and frequencies of outages across states. Including this feature allows the model to adjust its predictions based on region specific patterns, like differences in infrastructure.
+
+We also included MONTH as a one-hot encoded feature, capturing seasonal variation in weather and demand that could affect outage length. For instance, snowstorms in winter or heat waves in summer might have different effects on power systems. Although MONTH is technically cyclical, in this case, treating it as a categorical variable preserves the discrete, asymmetric nature of seasonal effects.
+
+The model was implemented using a RandomForestRegressor, chosen for its ability to model complex nonlinear relationships and robustness to overfitting, especially in combination with the variety of features used. Hyperparameters were selected using GridSearchCV with five-fold cross validation, optimizing for the lowest root mean squared error (RMSE). These values provided a strong balance between model expressiveness and generalization.
+
+Increased complexity introduced by feature engineering and additional features showed improved performance over the baseline. On the test set, the final model achieved an R-squared score of approximately 0.22 and an RMSE between 66-100. When evaluated on the full dataset, the model reached an R-squared score of around 0.33 and an RMSE of about 80. Despite all aspects of the model distinctly increasing, it also shows a smaller increase in unseen data, showing that it might react worse than the baseline model to unseen data.
+
+
 
 
 # Fairness Analysis
+
+The fairness tests evaluate the ANOMALY.LEVEL as group X, and the output duration as the Y. Within this, our permutation test evaluates whether positive and negative anomaly values have distinctly different RMSE.
+
+Null Hypothesis: Outages with positive and negative signs in Anomaly Levels will have similar effectiveness of prediction through RMSE
+
+Alternative Hypothesis: Outages with negative Anomaly levels will have a distinctly different RMSE
+
+Through permutation tests with 1000 different permutations, we found an average p-value around 0.45. This value is far from any statistically significant criterias such as 0.05 or 0.01, suggesting that we fail to reject the null, and there is no proof to say that the model is worse or better at predicting based upon the anomaly value.
