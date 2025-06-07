@@ -69,7 +69,7 @@ First, we examined how many outages each `'CAUSE.CATEGORY'` had:
 
 
 <iframe
-  src="assets/univariate_1.html"
+  src="assets/univeriate_1.html"
   width="800"
   height="600"
   frameborder="0"
